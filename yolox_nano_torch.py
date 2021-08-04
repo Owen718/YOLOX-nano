@@ -49,6 +49,7 @@ def make_parser():
     parser.add_argument("--conf", default=0.25, type=float, help="test conf")
     parser.add_argument("--nms", default=0.45, type=float, help="test nms threshold")
     parser.add_argument("--tsize", default=640, type=int, help="test img size")
+    parser.add_argument("--trt", default=False, type=bool)
 
     return parser
 
@@ -168,6 +169,8 @@ def image_demo(predictor, vis_folder, path, current_time, save_result):
 def image_detection(predictor,image_path):
     outputs, img_info = predictor.inference(image_path)
     result_image = predictor.visual(outputs[0], img_info, predictor.confthre)
+    cv2.imshow('result',result_image)
+    cv2.waitKey(0)
     return result_image,img_info
 
 def imageflow_demo(predictor, vis_folder, current_time, args):
